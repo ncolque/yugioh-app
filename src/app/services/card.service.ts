@@ -11,11 +11,14 @@ export class CardService {
 
   constructor(private http: HttpClient) {}
 
-  getCards(offset = 0) {
-    const params = {
+  getCards(name: string | null, offset = 0) {
+    const params: any = {
       num: 100,
       offset,
     };
+    if (name) {
+      params.fname = name;
+    }
     return this.http
       .get<Card[]>(this.API_URL, { params })
       .pipe(map((res: any) => res.data));
